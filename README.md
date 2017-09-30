@@ -8,6 +8,16 @@ A Docker image of an HSQLDB server. This image includes:
 
 Image exposes the standard port 9001 for running HSQLDB.
 
+#### Usage
+
+1. Pull the image from [Docker Hub](https://hub.docker.com/r/agherna/hsqldb/):
+       
+       docker pull agherna/hsqldb
+
+1. Run the image.
+
+       docker run -p 9001:9001 hsqldb
+       
 #### Building
 
 1. Edit the following files:
@@ -18,8 +28,14 @@ Image exposes the standard port 9001 for running HSQLDB.
 1. Run the build:
 
        docker build . -t hsqldb
+       
+1. Run the image:
 
+       docker run -p 9001:9001 hsqldb
+
+Image will run in the foreground and logging is directed to `stdout` by default. 
 
 #### See Also
 
 - [HSQDLB Home](http://hsqldb.org)
+- [Docker Hub Repository](https://hub.docker.com/r/agherna/hsqldb/)

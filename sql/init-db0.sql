@@ -1,12 +1,1 @@
--- CREATE USER NVP_REPO_USER PASSWORD "abcd1234";
--- CREATE SCHEMA NVP_REPO AUTHORIZATION DBA
--- CREATE TABLE pairs (
---   pair_sid            INTEGER IDENTITY PRIMARY KEY,
---   security_context    VARCHAR(255) NOT NULL,
---   application_context VARCHAR(255) NOT NULL,
---   pair_name           VARCHAR(255) NOT NULL,
---   pair_value          VARCHAR(16384) NOT NULL,
---   expired             TIMESTAMP
--- )
--- GRANT ALL PRIVILEGES ON pairs TO NVP_REPO_USER;
-
+-- TODO: add your SQL here to initialize your database.
