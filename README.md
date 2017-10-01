@@ -1,6 +1,6 @@
 ### hsqldb-img
 
-A Docker image of an HSQLDB server. This image includes:
+A Docker image of an HSQLDB server, built on version 2.4.0. This image includes:
 
 - hsqdldb.jar
 - log4j.jar
