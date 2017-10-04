@@ -24,9 +24,7 @@ RUN apk update \
     && addgroup -S hsqldb \
     && adduser -S -g hsqldb hsqldb 
 
-# COPY docker-entrypoint.sh /usr/local/bin/
 COPY conf/ /etc/opt/hsqldb/conf/
-# COPY sql/ /var/opt/hsqldb/sql/
 
 RUN chown hsqldb:hsqldb -R /opt/hsqldb \
     && chown hsqldb:hsqldb -R /var/opt/hsqldb \
@@ -34,7 +32,6 @@ RUN chown hsqldb:hsqldb -R /opt/hsqldb \
 
 EXPOSE 9001
 USER hsqldb
-#CMD [ "docker-entrypoint.sh" ]
 CMD [ "java", "-cp", "/opt/hsqldb/lib/*:/etc/opt/hsqldb/conf", \
       "org.hsqldb.server.Server", "--props", \
       "/etc/opt/hsqldb/conf/server.properties"]
