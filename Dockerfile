@@ -8,7 +8,7 @@ ENV HSQLDB_VERSION 2.4.0
 ENV LOG4J_VERSION 1.2.17
 
 RUN apk update \                                                                                                                                                                                                                        
-    && apk add ca-certificates wget openssl\                                                                                                                                                                                                      
+    && apk add ca-certificates wget openssl \                                                                                                                                                                                                      
     && update-ca-certificates && \
     mkdir -p /opt/hsqldb/lib \
     && wget -O /opt/hsqldb/lib/hsqldb.jar \
