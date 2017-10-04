@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:8-jre-alpine
 
 MAINTAINER Andy Gherna
 
@@ -7,7 +7,10 @@ ENV HSQLDB_MVN_GRP org/hsqldb
 ENV HSQLDB_VERSION 2.4.0
 ENV LOG4J_VERSION 1.2.17
 
-RUN mkdir -p /opt/hsqldb/lib \
+RUN apk update \                                                                                                                                                                                                                        
+    && apk add ca-certificates wget openssl\                                                                                                                                                                                                      
+    && update-ca-certificates && \
+    mkdir -p /opt/hsqldb/lib \
     && wget -O /opt/hsqldb/lib/hsqldb.jar \
        "${MVN_CENTRAL_URL}/${HSQLDB_MVN_GRP}/hsqldb/${HSQLDB_VERSION}/hsqldb-${HSQLDB_VERSION}.jar" \
     && wget -O /opt/hsqldb/lib/sqltool.jar \
@@ -18,12 +21,12 @@ RUN mkdir -p /opt/hsqldb/lib \
     && mkdir -p /var/opt/hsqldb/sql \
     && mkdir -p /var/opt/hsqldb/data \
     && mkdir -p /var/opt/hsqldb/run \
-    && groupadd -r hsqldb \
-    && useradd -l -r -g hsqldb hsqldb 
+    && addgroup -S hsqldb \
+    && adduser -S -g hsqldb hsqldb 
 
-COPY docker-entrypoint.sh /usr/local/bin/
+# COPY docker-entrypoint.sh /usr/local/bin/
 COPY conf/ /etc/opt/hsqldb/conf/
-COPY sql/ /var/opt/hsqldb/sql/
+# COPY sql/ /var/opt/hsqldb/sql/
 
 RUN chown hsqldb:hsqldb -R /opt/hsqldb \
     && chown hsqldb:hsqldb -R /var/opt/hsqldb \
@@ -31,4 +34,7 @@ RUN chown hsqldb:hsqldb -R /opt/hsqldb \
 
 EXPOSE 9001
 USER hsqldb
-CMD [ "docker-entrypoint.sh" ]
+#CMD [ "docker-entrypoint.sh" ]
+CMD [ "java", "-cp", "/opt/hsqldb/lib/*:/etc/opt/hsqldb/conf", \
+      "org.hsqldb.server.Server", "--props", \
+      "/etc/opt/hsqldb/conf/server.properties"]
